@@ -1,0 +1,24 @@
+[
+  {
+    "id": "q1",
+    "text": "Which type represents an asynchronous operation?",
+    "options": [
+      { "id": "a", "text": "Thread" },
+      { "id": "b", "text": "Task" },
+      { "id": "c", "text": "Monitor" }
+    ],
+    "correctOptionId": "b",
+    "explanation": "Task represents an asynchronous operation."
+  },
+  {
+    "id": "q2",
+    "text": "Which keyword declares an asynchronous method?",
+    "options": [
+      { "id": "a", "text": "async" },
+      { "id": "b", "text": "awaitable" },
+      { "id": "c", "text": "parallel" }
+    ],
+    "correctOptionId": "a",
+    "explanation": "The async keyword marks a method or lambda as asynchronous."
+  }
+]

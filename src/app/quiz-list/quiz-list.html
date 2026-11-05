@@ -1,0 +1,36 @@
+<section class="test-list">
+  <header class="page-header">
+    <h1>Available tests</h1>
+    <p>Choose a test to check your knowledge.</p>
+  </header>
+
+  @if (isLoading()) {
+    <p class="status" role="status">Loading tests...</p>
+  } @else if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  } @else if (tests().length === 0) {
+    <p class="status">No tests are available yet.</p>
+  } @else {
+    <div class="test-grid">
+      @for (test of tests(); track test.id) {
+        <article class="test-card">
+          <h2>{{ test.title }}</h2>
+
+          <p class="description">
+            {{ test.description }}
+          </p>
+
+          <p class="question-count">
+            {{ test.questionCount }} questions
+          </p>
+
+          <a
+            class="start-button"
+            [routerLink]="['/quiz', test.id]">
+            Start test
+          </a>
+        </article>
+      }
+    </div>
+  }
+</section>

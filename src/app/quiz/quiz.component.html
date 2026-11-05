@@ -1,0 +1,96 @@
+<section class="quiz">
+  @if (isLoading()) {
+    <p role="status">Loading questions...</p>
+  } @else if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+    <a routerLink="/list">Back to tests</a>
+  } @else if (isFinished()) {
+    <div class="result">
+      <h1>Test completed!</h1>
+
+      <p class="score">
+        {{ correctAnswers() }} / {{ totalQuestions() }} correct
+      </p>
+
+      <p>You scored {{ scorePercentage() }}%.</p>
+
+      <button type="button" (click)="restart()">
+        Try again
+      </button>
+
+      <a routerLink="/list">Back to tests</a>
+    </div>
+  } @else if (currentQuestion(); as question) {
+    <header class="quiz-header">
+      <a routerLink="/list">← All tests</a>
+
+      <p>
+        Question {{ currentIndex() + 1 }} of {{ totalQuestions() }}
+      </p>
+
+      <div
+        class="progress-track"
+        role="progressbar"
+        [attr.aria-valuenow]="currentIndex() + 1"
+        [attr.aria-valuemin]="1"
+        [attr.aria-valuemax]="totalQuestions()">
+        <div
+          class="progress-bar"
+          [style.width.%]="progress()">
+        </div>
+      </div>
+    </header>
+
+    <article class="question-card">
+      <h1>{{ question.text }}</h1>
+
+      <div class="options">
+        @for (option of question.options; track option.id) {
+          <button
+            type="button"
+            class="option"
+            [class.correct]="selectedOptionId() !== null && isCorrect(option.id)"
+            [class.incorrect]="selectedOptionId() === option.id && !isCorrect(option.id)"
+            [disabled]="selectedOptionId() !== null"
+            (click)="selectAnswer(option.id)">
+
+            {{ option.text }}
+
+            @if (selectedOptionId() !== null && isCorrect(option.id)) {
+              <span aria-label="Correct answer"> ✓</span>
+            }
+
+            @if (selectedOptionId() === option.id && !isCorrect(option.id)) {
+              <span aria-label="Incorrect answer"> ✕</span>
+            }
+          </button>
+        }
+      </div>
+
+      @if (selectedOptionId() !== null) {
+        <div
+          class="feedback"
+          [class.feedback-correct]="isCorrect(selectedOptionId()!)"
+          [class.feedback-incorrect]="!isCorrect(selectedOptionId()!)"
+          role="status">
+
+          <strong>
+            {{ isCorrect(selectedOptionId()!) ? 'Correct!' : 'Not quite.' }}
+          </strong>
+
+          <p>{{ question.explanation }}</p>
+        </div>
+
+        <button
+          type="button"
+          class="next-button"
+          (click)="nextQuestion()">
+
+          {{ currentIndex() + 1 === totalQuestions()
+            ? 'Show results'
+            : 'Next question' }}
+        </button>
+      }
+    </article>
+  }
+</section>

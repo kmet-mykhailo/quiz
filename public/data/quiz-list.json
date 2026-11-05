@@ -1,0 +1,16 @@
+[
+  {
+    "id": "dotnet",
+    "title": ".NET Fundamentals",
+    "description": "Test your knowledge of .NET",
+    "questionCount": 2,
+    "questionsFile": "dotnet.json"
+  },
+  {
+    "id": "angular",
+    "title": "Angular Fundamentals",
+    "description": "Test your knowledge of Angular",
+    "questionCount": 2,
+    "questionsFile": "angular.json"
+  }
+]
